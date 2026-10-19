@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Accenture Data &amp; AI Readiness</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: header → client score strip → assessment sliders beside live radar → reference architecture coloured by gap → use cases unlocked → generated roadmap */
+:root{
+  --bg:#F4F3F7; --surface:#FFFFFF; --fg:#16131F; --muted:#5E5970; --line:#E0DDE8; --faint:#EEECF3;
+  --accent:#6B3FA0; --accent-ink:#FFFFFF; --accent-soft:#EEE6F7;
+  --cur:#6B3FA0; --tgt:#1F8A70;
+  --red:#B42318; --red-soft:#FDE8E6; --amber:#B7791F; --amber-soft:#FBF0DC; --green:#2F7D5B; --green-soft:#E2F1EA;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#100E17; --surface:#18151F; --fg:#ECE9F3; --muted:#9E98B0; --line:#2B2738; --faint:#201C2A;
+  --accent:#B892E8; --accent-ink:#1A0F28; --accent-soft:#2A2038; --cur:#B892E8; --tgt:#5CC9A7;
+  --red:#F97066; --red-soft:#3A1715; --amber:#F0B44A; --amber-soft:#3A2C12; --green:#5CC193; --green-soft:#14302A;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#100E17; --surface:#18151F; --fg:#ECE9F3; --muted:#9E98B0; --line:#2B2738; --faint:#201C2A;
+  --accent:#B892E8; --accent-ink:#1A0F28; --accent-soft:#2A2038; --cur:#B892E8; --tgt:#5CC9A7;
+  --red:#F97066; --red-soft:#3A1715; --amber:#F0B44A; --amber-soft:#3A2C12; --green:#5CC193; --green-soft:#14302A;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{padding-block:28px 24px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+.prep{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.firmtag{font-family:var(--display);font-weight:800;font-stretch:110%;font-size:13px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);padding:4px 9px;border-radius:3px}
+h1{font-size:clamp(34px,5.4vw,58px);font-weight:800;font-stretch:78%;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{max-width:64ch;color:var(--muted);margin:12px 0 0;font-size:16px}
+.author{text-align:right;font-size:13px;color:var(--muted);line-height:1.5}
+.author b{display:block;color:var(--fg);font-family:var(--display);font-stretch:95%;font-size:16px}
+@media (max-width:760px){header.top .wrap{grid-template-columns:1fr}.author{text-align:left}}
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:22px}
+@media (max-width:760px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--surface);padding:14px 16px;min-width:0}
+.kpi b{display:block;font-family:var(--display);font-weight:800;font-stretch:85%;font-size:28px;line-height:1.05;font-variant-numeric:tabular-nums}
+.kpi b small{font-size:15px;color:var(--muted);font-weight:600}
+.kpi span{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+.client{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;margin-top:26px}
+.client h2{font-size:22px;font-stretch:88%}
+.client p{margin:4px 0 0;color:var(--muted);font-size:14px;max-width:80ch}
+section{padding-block:26px 8px}
+.ph{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.ph h2{font-size:24px;font-weight:700;font-stretch:88%}
+.ph h2 .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500;margin-right:10px;vertical-align:3px}
+.ph p{margin:4px 0 0;color:var(--muted);font-size:14px;max-width:74ch}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:16px 18px;min-width:0}
+.box h3{font-size:15px;font-stretch:92%;font-weight:700;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.btn{cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:13.5px;padding:8px 13px;border-radius:4px}
+.btn.ghost{background:transparent;color:var(--accent)}
+.toast{font-size:12.5px;color:var(--accent)}
+
+/* sliders */
+.caps{display:flex;flex-direction:column}
+.cap{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:12px;padding:11px 0;border-top:1px solid var(--line);align-items:center}
+.cap:first-child{border-top:0;padding-top:2px}
+@media (max-width:560px){.cap{grid-template-columns:1fr}}
+.cap .nm{font-weight:600;font-size:14px;line-height:1.3}
+.cap .ds{font-size:12px;color:var(--muted);line-height:1.35;margin-top:2px}
+.gapb{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:999px;margin-left:6px;vertical-align:1px}
+.lv{display:grid;grid-template-columns:52px 1fr;gap:6px 8px;align-items:center}
+.lv label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.seg{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.seg button{all:unset;cursor:pointer;height:20px;border-radius:2px;background:var(--faint);font-family:var(--mono);font-size:10.5px;text-align:center;line-height:20px;color:var(--muted)}
+.seg button:focus-visible{outline:2px solid var(--accent)}
+.seg.c button.on{background:var(--cur);color:var(--surface)}
+.seg.c button.in{background:var(--accent-soft);color:var(--cur)}
+.seg.t button.on{background:var(--tgt);color:var(--surface)}
+.seg.t button.in{background:color-mix(in srgb,var(--tgt) 18%,var(--surface));color:var(--tgt)}
+.scale{font-size:11.5px;color:var(--muted);margin-top:10px}
+.radarbox{position:sticky;top:12px}
+@media (max-width:900px){.radarbox{position:static}}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+svg text{font-family:var(--body)}
+
+/* architecture */
+.arch{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px}
+.vband{writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:12px;font-weight:600;letter-spacing:.03em;cursor:pointer;border:1.5px solid var(--gc);background:var(--gs);color:var(--fg);padding:8px 0}
+.layers{display:flex;flex-direction:column;gap:6px;min-width:0}
+.layer{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:stretch}
+@media (max-width:600px){.layer{grid-template-columns:1fr}}
+.layer .ln{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center}
+.blocks{display:flex;gap:6px;flex-wrap:wrap}
+.blk{all:unset;cursor:pointer;flex:1 1 140px;border:1.5px solid var(--gc);background:var(--gs);border-radius:4px;padding:8px 10px;font-size:13px;font-weight:600;line-height:1.25;min-width:0}
+.blk small{display:block;font-weight:400;font-size:11.5px;color:var(--muted);margin-top:2px}
+.blk:focus-visible,.vband:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.blk.sel,.vband.sel{box-shadow:0 0 0 2px var(--fg)}
+.neutral{--gc:var(--line);--gs:var(--faint);cursor:default}
+.archd{margin-top:12px}
+.archd .t{font-family:var(--display);font-weight:800;font-stretch:85%;font-size:20px}
+.archd dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px;margin:10px 0 0}
+.archd dt{color:var(--muted)}
+.archd dd{margin:0}
+
+/* use cases */
+.ucg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.uc{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--sc);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.uc .h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.uc .h b{font-size:14px;line-height:1.3}
+.uc .val{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.st{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--sc);font-weight:500}
+.req{display:flex;flex-wrap:wrap;gap:4px}
+.req span{font-size:11.5px;border-radius:3px;padding:2px 6px;background:var(--faint);color:var(--muted)}
+.req span.miss{background:var(--red-soft);color:var(--red)}
+.req span.ok{background:var(--green-soft);color:var(--green)}
+
+/* roadmap */
+.rm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.rm{grid-template-columns:1fr}}
+.hz{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:14px 16px;min-width:0}
+.hz h3{font-size:16px;font-stretch:92%;font-weight:700}
+.hz .when{font-family:var(--mono);font-size:11px;color:var(--muted);margin:2px 0 10px}
+.hz ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.hz li{font-size:13.5px;line-height:1.35;padding-left:12px;border-left:3px solid var(--accent)}
+.hz li small{display:block;color:var(--muted);font-size:12px}
+.hz .empty{color:var(--muted);font-size:13px;border:0;padding:0}
+.unl{font-size:12px;color:var(--green);margin-top:10px;font-weight:600}
+.fit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:8px}
+@media (max-width:820px){.fit{grid-template-columns:1fr}}
+.fit div{border-top:2px solid var(--accent);padding-top:12px}
+.fit h3{font-size:17px;font-stretch:92%;font-weight:700;margin-bottom:6px}
+.fit p{margin:0;font-size:14px;color:var(--muted)}
+.ask{margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;background:var(--accent);color:var(--accent-ink);border-radius:4px;padding:22px 24px}
+.ask h3{font-size:24px;font-stretch:85%;font-weight:800}
+.ask p{margin:6px 0 0;font-size:14.5px;max-width:62ch;opacity:.92}
+.contact{font-family:var(--mono);font-size:13px;text-align:right;line-height:1.7;user-select:all}
+@media (max-width:720px){.ask{grid-template-columns:1fr}.contact{text-align:left}}
+footer{border-top:1px solid var(--line);padding-block:20px 34px;font-size:12px;color:var(--muted);margin-top:30px}
+footer p{margin:0 0 4px;max-width:110ch}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div>
+      <div class="prep"><span class="firmtag">Built for Accenture</span><span class="eyebrow">Technology Strategy &amp; Advisory · Data &amp; AI architecture</span></div>
+      <h1>Data &amp; AI <em>architecture readiness</em></h1>
+      <p class="lede">The diagnostic I would run in the first two weeks of a data and AI strategy engagement: score eight capabilities, see the gap on the client's reference architecture, find out which AI use cases those gaps are blocking, and get a sequenced roadmap. Move any score and everything below recalculates.</p>
+    </div>
+    <div class="author"><b>Sarfaraz Singh Wahad</b>AIGP · PMP · IE International MBA '26<br>Ex-PwC GenAI architecture &amp; delivery</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="client">
+    <div><h2>Sample client: Iberian energy utility</h2><p>Nine million retail customers, SCADA and smart-meter estates, SAP IS-U billing, an on-premise data warehouse and three disconnected GenAI pilots. Scores below are an illustrative starting assessment; all figures are synthetic.</p></div>
+    <div style="display:flex;gap:8px;align-items:center"><span class="toast" id="toast" role="status"></span><button class="btn ghost" type="button" id="reset">Reset sample</button><button class="btn" type="button" id="copy">Copy assessment summary</button></div>
+  </div>
+  <div class="strip" id="strip"></div>
+
+  <section>
+    <div class="ph"><div><h2><span class="n">01</span>Capability assessment</h2><p>Current and target maturity on a five-level scale. Targets reflect what the client's AI ambition actually needs, not level 5 everywhere.</p></div></div>
+    <div class="grid2">
+      <div class="box"><div class="caps" id="caps"></div><p class="scale">1 Ad hoc · 2 Emerging · 3 Defined · 4 Managed · 5 Optimised</p></div>
+      <div class="box radarbox"><h3>Current vs. target</h3><svg id="radar" viewBox="0 0 440 400" width="100%" role="img" aria-label="Radar chart of current and target maturity"></svg>
+        <div class="legend"><span><i style="background:var(--cur);opacity:.85"></i>Current</span><span><i style="background:var(--tgt);opacity:.85"></i>Target</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ph"><div><h2><span class="n">02</span>Reference architecture, coloured by gap</h2><p>Each layer takes the score of the capability behind it. Green is at target, amber one level short, red two or more. Select a block for the target pattern.</p></div>
+      <div class="legend"><span><i style="background:var(--green)"></i>At target</span><span><i style="background:var(--amber)"></i>1 level short</span><span><i style="background:var(--red)"></i>2+ short</span></div></div>
+    <div class="box">
+      <div class="arch" id="arch"></div>
+      <div class="archd" id="archd"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ph"><div><h2><span class="n">03</span>Which AI use cases the architecture can carry</h2><p>Each use case needs minimum maturity in specific capabilities. Raise a score above and watch what unblocks.</p></div></div>
+    <div class="ucg" id="ucs"></div>
+  </section>
+
+  <section>
+    <div class="ph"><div><h2><span class="n">04</span>Sequenced roadmap</h2><p>Generated from the gaps. Foundations come first because every AI layer inherits their weaknesses; larger gaps run across two horizons.</p></div></div>
+    <div class="rm" id="rm"></div>
+  </section>
+
+  <section>
+    <div class="ph"><div><h2>Where this fits in Technology Strategy &amp; Advisory</h2></div></div>
+    <div class="fit">
+      <div><h3>A diagnostic that becomes the proposal</h3><p>Scores, blocked use cases and the roadmap come out of one workshop. The roadmap horizons map straight onto a phased statement of work.</p></div>
+      <div><h3>Architecture tied to value</h3><p>Clients fund platforms when they see which use cases those platforms unlock. The tool makes that link explicit, use case by use case.</p></div>
+      <div><h3>Built by someone who has shipped it</h3><p>At PwC I shipped a GenAI assistant to 2M+ users and rebuilt a contact-centre architecture for 40% more capacity. Before that, ten years running technical operations on submarines.</p></div>
+    </div>
+    <div class="ask">
+      <div><h3>What I'm asking for</h3><p>Thirty minutes with someone in Data &amp; AI architecture to run this against a real engagement pattern. I'm targeting the TS&amp;A Data Architecture &amp; AI Consultant/Manager track after my IE MBA in December 2026.</p></div>
+      <div class="contact">sarfarazsingh@student.ie.edu<br>+34 663 462 250<br>Madrid</div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Independent prototype built by Sarfaraz Singh Wahad to show how he would work in Accenture's Technology Strategy &amp; Advisory practice. Not affiliated with, commissioned or endorsed by Accenture. The client and every figure are synthetic.</p>
+</div></footer>
+
+<script>
+const LV=["","Ad hoc","Emerging","Defined","Managed","Optimised"];
+const CAPS=[
+ {k:"strategy",sh:"Strategy",n:"Data & AI strategy and value case",d:"Prioritised use cases with owners and a funded benefits case",c:3,t:4,
+  pat:"Portfolio of AI use cases ranked by value and feasibility, a benefits register signed by business owners, and a funding model that releases money per proven wave.",
+  init:["Prioritise the AI use-case portfolio and sign off a benefits case","Quarterly value reviews tied to funding releases"]},
+ {k:"platform",sh:"Platform",n:"Data platform",d:"Lakehouse, integration and streaming for OT and IT data",c:2,t:4,
+  pat:"Cloud lakehouse with medallion layers, CDC from SAP IS-U and CRM, streaming ingestion for SCADA and smart-meter telemetry. Options include Databricks, Snowflake or Microsoft Fabric on Azure, AWS or GCP.",
+  init:["Land the lakehouse and migrate priority domains off the on-premise warehouse","Stream smart-meter and SCADA telemetry into the platform"]},
+ {k:"quality",sh:"Quality & MDM",n:"Data quality & master data",d:"Asset, customer and meter masters with measured quality",c:2,t:4,
+  pat:"Golden records for asset, customer and meter; automated quality rules at ingestion with published scorecards per domain.",
+  init:["Stand up asset and meter master data with quality scorecards","Automate quality rules in every pipeline"]},
+ {k:"governance",sh:"Governance",n:"Data governance & catalog",d:"Ownership, catalog, lineage and access policy",c:1,t:4,
+  pat:"Federated data ownership by domain, a catalog with lineage and classification (for example Unity Catalog, Purview or Collibra), and policy-based access tied to classification.",
+  init:["Appoint domain data owners and launch the catalog with lineage","Policy-based access tied to data classification"]},
+ {k:"mlops",sh:"ML/LLMOps",n:"ML & LLMOps",d:"Deploy, monitor and evaluate models in production",c:2,t:4,
+  pat:"Model registry, CI/CD for models and prompts, offline and online evaluation sets, drift and quality monitoring with control limits, and cost tracking per use case.",
+  init:["Model registry, CI/CD and monitoring for the first production models","Evaluation harness and quality control charts for LLM outputs"]},
+ {k:"genai",sh:"GenAI platform",n:"GenAI & agent platform",d:"Shared RAG, orchestration and guardrails",c:1,t:4,
+  pat:"One shared GenAI platform: model gateway with routing and pinning, enterprise RAG over governed content, agent orchestration with tool permissions, and guardrails for PII, grounding and prompt injection.",
+  init:["Consolidate three pilots onto one GenAI platform with a model gateway","Agent orchestration with tool permissions and guardrails"]},
+ {k:"security",sh:"Security & AI Act",n:"Security, privacy & AI Act",d:"Controls for data, models and EU AI Act obligations",c:3,t:4,
+  pat:"AI inventory and risk classification under the EU AI Act, DPIAs for personal-data use cases, model access controls, and red-teaming before release.",
+  init:["AI inventory, AI Act classification and DPIA workflow","Red-teaming and incident response for AI systems"]},
+ {k:"opmodel",sh:"Operating model",n:"Operating model & skills",d:"Who builds, runs and owns AI across business and IT",c:2,t:3,
+  pat:"A hub-and-spoke AI centre of excellence, product teams per domain, and role-based upskilling with AI literacy for every operator.",
+  init:["Launch the AI centre of excellence and domain product teams","Role-based upskilling and AI literacy programme"]}
+];
+const BASEH={strategy:0,platform:0,quality:0,governance:0,security:0,opmodel:0,mlops:1,genai:1};
+const UCS=[
+ {n:"Customer service GenAI assistant",v:3.5,req:{genai:3,governance:2,security:3,quality:2}},
+ {n:"Predictive maintenance on grid assets",v:6.0,req:{platform:3,quality:3,mlops:3}},
+ {n:"Smart-meter demand forecasting",v:4.0,req:{platform:3,quality:3,mlops:3}},
+ {n:"Field-engineer copilot",v:2.5,req:{genai:3,platform:2,governance:3}},
+ {n:"Regulatory reporting automation",v:1.5,req:{quality:4,governance:3,platform:3}},
+ {n:"Agentic outage triage",v:5.0,req:{genai:4,mlops:4,security:4,opmodel:3}}
+];
+const ARCH={left:"security",right:"opmodel",layers:[
+ {n:"Consumption",b:[{t:"Copilots & agents",s:"Field, customer, analyst"},{t:"BI & reporting",s:"Regulatory, finance"},{t:"Operational apps",s:"Outage, work orders"}]},
+ {n:"AI layer",b:[{k:"genai",t:"GenAI & agent platform",s:"Gateway, RAG, orchestration, guardrails"},{k:"mlops",t:"ML & LLMOps",s:"Registry, evals, monitoring"}]},
+ {n:"Govern",b:[{k:"governance",t:"Catalog, lineage & policy",s:"Ownership, classification, access"},{k:"quality",t:"Quality & master data",s:"Asset, meter, customer"}]},
+ {n:"Data platform",b:[{k:"platform",t:"Lakehouse",s:"Bronze, silver, gold"},{k:"platform",t:"Integration & streaming",s:"CDC, events, telemetry"}]},
+ {n:"Sources",b:[{t:"SCADA & grid OT"},{t:"Smart meters"},{t:"SAP IS-U"},{t:"CRM & contact centre"},{t:"GIS & work orders"}]}
+]};
+
+const S={}; const reset=()=>CAPS.forEach(c=>S[c.k]={c:c.c,t:c.t}); reset();
+let selK="genai";
+const $=q=>document.querySelector(q);
+const gapOf=k=>Math.max(0,S[k].t-S[k].c);
+const gcol=k=>{const g=gapOf(k);return g===0?["--green","--green-soft"]:g===1?["--amber","--amber-soft"]:["--red","--red-soft"];};
+const avg=f=>CAPS.reduce((a,c)=>a+S[c.k][f],0)/CAPS.length;
+const ucStatus=(u,f)=>Object.entries(u.req).every(([k,l])=>S[k][f]>=l);
+
+function caps(){
+  $("#caps").innerHTML=CAPS.map(c=>{const g=gapOf(c.k),[gc,gs]=gcol(c.k);
+    const seg=(f)=>[1,2,3,4,5].map(i=>`<button type="button" data-k="${c.k}" data-f="${f}" data-v="${i}" class="${i===S[c.k][f]?"on":i<S[c.k][f]?"in":""}" aria-label="${c.n} ${f==="c"?"current":"target"} level ${i}" aria-pressed="${i===S[c.k][f]}">${i}</button>`).join("");
+    return `<div class="cap"><div><div class="nm">${c.n}<span class="gapb" style="background:var(${gs});color:var(${gc})">${g?"gap "+g:"at target"}</span></div><div class="ds">${c.d}</div></div>
+      <div class="lv"><label>Now</label><div class="seg c">${seg("c")}</div><label>Target</label><div class="seg t">${seg("t")}</div></div></div>`}).join("");
+  $("#caps").querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{const k=b.dataset.k,f=b.dataset.f,v=+b.dataset.v;S[k][f]=v; if(f==="c"&&S[k].t<v) S[k].t=v; if(f==="t"&&S[k].c>v) S[k].c=v; all();});
+}
+function radar(){
+  const cx=220,cy=200,R=140,n=CAPS.length,ang=i=>-Math.PI/2+i*2*Math.PI/n,pt=(i,l)=>[cx+Math.cos(ang(i))*R*l/5,cy+Math.sin(ang(i))*R*l/5];
+  let h="";
+  for(let l=1;l<=5;l++) h+=`<polygon points="${CAPS.map((_,i)=>pt(i,l).join(",")).join(" ")}" fill="none" stroke="var(--line)"/>`;
+  CAPS.forEach((c,i)=>{const [x,y]=pt(i,5),[lx,ly]=pt(i,5.9);h+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--line)"/>`;
+    const short=c.sh;
+    const anchor=Math.abs(lx-cx)<8?"middle":lx>cx?"start":"end";
+    h+=`<text x="${lx}" y="${ly+4}" text-anchor="${anchor}" font-size="11.5" fill="var(--fg)" font-weight="600">${short}</text>`;});
+  [1,3,5].forEach(l=>h+=`<text x="${cx+4}" y="${cy-R*l/5-3}" font-size="9.5" fill="var(--muted)">${l}</text>`);
+  const poly=(f,col,op)=>`<polygon points="${CAPS.map((c,i)=>pt(i,S[c.k][f]).join(",")).join(" ")}" fill="var(${col})" fill-opacity="${op}" stroke="var(${col})" stroke-width="2"/>`;
+  h+=poly("t","--tgt",.12)+poly("c","--cur",.28);
+  CAPS.forEach((c,i)=>{const [x,y]=pt(i,S[c.k].c);h+=`<circle cx="${x}" cy="${y}" r="3.5" fill="var(--cur)"/>`;});
+  $("#radar").innerHTML=h;
+}
+function strip(){
+  const ready=UCS.filter(u=>ucStatus(u,"c")),atT=UCS.filter(u=>ucStatus(u,"t")),blockedV=UCS.filter(u=>!ucStatus(u,"c")).reduce((a,u)=>a+u.v,0);
+  const big=[...CAPS].sort((a,b)=>gapOf(b.k)-gapOf(a.k))[0];
+  $("#strip").innerHTML=`<div class="kpi"><b>${avg("c").toFixed(1)}<small> → ${avg("t").toFixed(1)}</small></b><span>Average maturity, current to target</span></div>
+   <div class="kpi"><b>${ready.length}<small> / ${UCS.length}</small></b><span>AI use cases the architecture can carry today</span></div>
+   <div class="kpi"><b>~€${blockedV.toFixed(0)}M</b><span>Annual value blocked by capability gaps</span></div>
+   <div class="kpi"><b style="font-size:20px;line-height:1.2">${gapOf(big.k)?big.n:"None"}</b><span>${gapOf(big.k)?"Largest gap: "+gapOf(big.k)+" levels":"All capabilities at target"}</span></div>`;
+}
+function arch(){
+  const blk=(b)=>{if(!b.k) return `<div class="blk neutral">${b.t}${b.s?`<small>${b.s}</small>`:""}</div>`;const [gc,gs]=gcol(b.k);
+    return `<button class="blk ${b.k===selK?"sel":""}" type="button" data-k="${b.k}" style="--gc:var(${gc});--gs:var(${gs})">${b.t}<small>${b.s} · L${S[b.k].c}→L${S[b.k].t}</small></button>`;};
+  const band=(k,label)=>{const [gc,gs]=gcol(k);return `<button class="vband ${k===selK?"sel":""}" type="button" data-k="${k}" style="--gc:var(${gc});--gs:var(${gs})">${label} · L${S[k].c}→L${S[k].t}</button>`;};
+  $("#arch").innerHTML=band(ARCH.left,"Security, privacy & AI Act controls")+`<div class="layers">${ARCH.layers.map(l=>`<div class="layer"><div class="ln">${l.n}</div><div class="blocks">${l.b.map(blk).join("")}</div></div>`).join("")}</div>`+band(ARCH.right,"Operating model & skills");
+  $("#arch").querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{selK=b.dataset.k;arch();});
+  const c=CAPS.find(x=>x.k===selK), g=gapOf(selK), blocked=UCS.filter(u=>u.req[selK]&&S[selK].c<u.req[selK]);
+  $("#archd").innerHTML=`<div class="eyebrow">Selected layer</div><div class="t">${c.n}</div><dl><dt>Today</dt><dd>Level ${S[selK].c}, ${LV[S[selK].c].toLowerCase()}</dd><dt>Target</dt><dd>Level ${S[selK].t}, ${LV[S[selK].t].toLowerCase()}${g?` (gap ${g})`:""}</dd><dt>Target pattern</dt><dd>${c.pat}</dd><dt>Blocking</dt><dd>${blocked.length?blocked.map(u=>u.n).join(", "):"No use cases"}</dd></dl>`;
+}
+function ucs(){
+  $("#ucs").innerHTML=UCS.map(u=>{const now=ucStatus(u,"c"),tgt=ucStatus(u,"t");
+    const st=now?{l:"Ready now",c:"--green"}:tgt?{l:"Unlocked by roadmap",c:"--amber"}:{l:"Beyond current target",c:"--red"};
+    return `<div class="uc" style="--sc:var(${st.c})"><div class="h"><b>${u.n}</b><span class="val">~€${u.v.toFixed(1)}M/yr</span></div><span class="st">${st.l}</span>
+      <div class="req">${Object.entries(u.req).map(([k,l])=>{const c=CAPS.find(x=>x.k===k);const ok=S[k].c>=l;return `<span class="${ok?"ok":"miss"}" title="${c.n}: needs L${l}, now L${S[k].c}">${c.sh} L${l}${ok?" ✓":" (L"+S[k].c+")"}</span>`}).join("")}</div></div>`}).join("");
+}
+function roadmap(){
+  const H=[[],[],[]];
+  CAPS.forEach(c=>{const g=gapOf(c.k); if(!g) return; const b=BASEH[c.k]; H[b].push({c,i:0,g}); if(g>=2) H[Math.min(2,b+1)].push({c,i:1,g});});
+  const names=["Foundations","Scale the AI layer","Industrialise"], when=["Months 0–6","Months 6–12","Months 12–18"];
+  // what unlocks by end of each horizon: simulate levels
+  const lvl={}; CAPS.forEach(c=>lvl[c.k]=S[c.k].c);
+  const unlocked=[];
+  H.forEach((items,hi)=>{items.forEach(it=>{const step=it.g>=2?(it.i===0?Math.ceil(it.g/2):Math.floor(it.g/2)):it.g; lvl[it.c.k]=Math.min(S[it.c.k].t,lvl[it.c.k]+step);});
+    unlocked[hi]=UCS.filter(u=>!ucStatus(u,"c")&&Object.entries(u.req).every(([k,l])=>lvl[k]>=l)&&!unlocked.flat().includes(u.n)).map(u=>u.n);});
+  $("#rm").innerHTML=H.map((items,hi)=>`<div class="hz"><h3>${names[hi]}</h3><div class="when">${when[hi]}</div><ul>${items.length?items.map(it=>`<li>${it.c.init[it.i]}<small>${it.c.n} · to L${it.i===0&&it.g>=2?S[it.c.k].c+Math.ceil(it.g/2):S[it.c.k].t}</small></li>`).join(""):`<li class="empty">Nothing needed in this horizon.</li>`}</ul>${unlocked[hi].length?`<div class="unl">Unlocks: ${unlocked[hi].join(", ")}</div>`:""}</div>`).join("");
+  window.__H=H;
+}
+function all(){caps();radar();strip();arch();ucs();roadmap();}
+$("#reset").onclick=()=>{reset();all();};
+$("#copy").onclick=()=>{
+  const ready=UCS.filter(u=>ucStatus(u,"c")).map(u=>u.n), blocked=UCS.filter(u=>!ucStatus(u,"c"));
+  const txt=["Data & AI architecture readiness: summary",`Average maturity ${avg("c").toFixed(1)} now, ${avg("t").toFixed(1)} target.`,"",
+   "Gaps:",...CAPS.filter(c=>gapOf(c.k)).sort((a,b)=>gapOf(b.k)-gapOf(a.k)).map(c=>`- ${c.n}: L${S[c.k].c} → L${S[c.k].t}`),"",
+   `Use cases ready now: ${ready.length?ready.join(", "):"none"}.`,`Blocked: ${blocked.map(u=>u.n).join(", ")} (about €${blocked.reduce((a,u)=>a+u.v,0).toFixed(0)}M a year).`,"",
+   ...["Months 0–6","Months 6–12","Months 12–18"].map((w,i)=>`${w}: ${(window.__H[i]||[]).map(it=>it.c.init[it.i]).join("; ")||"none"}`),"",
+   "Synthetic demo by Sarfaraz Singh Wahad."].join("\n");
+  const done=m=>{$("#toast").textContent=m;setTimeout(()=>$("#toast").textContent="",2400);};
+  const fb=()=>{const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done("Summary copied");}catch(e){done("Copy blocked here");}ta.remove();};
+  try{navigator.clipboard.writeText(txt).then(()=>done("Summary copied"),fb);}catch(e){fb();}
+};
+all();
+</script>
+
+</body>
+</html>
